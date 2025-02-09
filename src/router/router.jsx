@@ -3,8 +3,8 @@ import Layout from "../pages/Layout"
 import ErrorPage from "../pages/ErrorPage"
 import HomePage from "../pages/HomePage"
 import Transactions from "../pages/Transactions"
-import LoginPage from "../pages/LoginPage"
 import Categories from "../pages/Categories"
+import Auth from "../pages/Auth"
 
 export const router = createBrowserRouter([
     {
@@ -26,7 +26,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "auth",
-                element: <LoginPage/>
+                element: <Auth/>
             },
             {
                 path: "*",
