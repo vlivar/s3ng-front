@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { logoutAction } from '../store/user/userSlice';
-import { removeTokenToLocalStorage } from '../helpers/localstorage.helper';
+import { AuthService } from '../services/auth.service';
 
 const Header = () => {
   const isAuth = useAuth()
@@ -17,15 +17,16 @@ const Header = () => {
 
   useEffect(() => {
     if (shouldNavigate) {
-        navigate("/");
+        navigate("/")
       }
   }, [shouldNavigate])
 
   const logoutHandler = () => {
+    AuthService.logout()
     dispatch(logoutAction())
-    removeTokenToLocalStorage("token")
     toast.success("logout successfully")
     setShouldNavigate(true)
+    navigate("/")
   }
 
   return <header className='flex items-center bg-slate-800 p-4 shadow-sm backdrop-blur-sm'>

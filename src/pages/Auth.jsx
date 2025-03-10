@@ -1,13 +1,11 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { AuthService } from '../services/auth.service'
-import { setTokenToLocalStorage } from '../helpers/localstorage.helper'
-import { loginAction } from "../store/user/userSlice";
+import { loginAction, setAccessToken } from "../store/user/userSlice";
 
 const Auth = props => {
   const [login, setLogin] = useState("")
@@ -47,8 +45,8 @@ const Auth = props => {
 
             const data = await AuthService.login({login, password})
             if (data) {
-                setTokenToLocalStorage("token", data.token)
                 dispatch(loginAction({ login, password }))
+                dispatch(setAccessToken(data.tokens))
                 toast.success("Login successfully")
                 navigate("/")
             }
