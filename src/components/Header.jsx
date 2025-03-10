@@ -43,10 +43,10 @@ const Header = () => {
                         <NavLink to={"/"} className={({isActive}) => isActive ? "text-white" : "text-white/50"}>Home</NavLink>
                     </li>
                     <li>
-                        <NavLink to={"/categories"} className={({isActive}) => isActive ? "text-white" : "text-white/50"}>Categories</NavLink>
+                        <NavLink to={"/products"} className={({isActive}) => isActive ? "text-white" : "text-white/50"}>Product</NavLink>
                     </li>
                     <li>
-                        <NavLink to={"/transactions"} className={({isActive}) => isActive ? "text-white" : "text-white/50"}>Transactions</NavLink>
+                        <NavLink to={"/orders"} className={({isActive}) => isActive ? "text-white" : "text-white/50"}>Orders</NavLink>
                     </li>
                 </ul>
             </nav>
