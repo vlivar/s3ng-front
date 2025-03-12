@@ -1,5 +1,5 @@
 export class ResponceLogin {
-    constructor(tokens) {
-        this.tokens = tokens
+    constructor(accessToken) {
+        this.accessToken = accessToken
     }
 }

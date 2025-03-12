@@ -1,13 +1,18 @@
 export function getTokenFromLocalStorage() {
     const data = localStorage.getItem("accessToken")
-    const token = data ? JSON.parse(data) : ""
-    return token
+    if (!data) return ""
+
+    try {
+        return JSON.parse(data);
+    } catch (error) {
+        return "";
+    }
 }
 
-export function setTokenToLocalStorage(key, token) {
-    localStorage.setItem(key, JSON.stringify(token))
+export function setAccessTokenToLocalStorage(token) {
+    localStorage.setItem("accessToken", JSON.stringify(token))
 }
 
-export function removeTokenToLocalStorage(key) {
-    localStorage.removeItem(key)
+export function removeAccessTokenToLocalStorage() {
+    localStorage.removeItem("accessToken")
 }

@@ -41,7 +41,7 @@ export const AuthService = {
      * @returns {Promise<ResponceProfile>}
      */
     async getCurrentProfile() {
-        const { data } = await instance.get("user/profile", { withCredentials: true })
+        const { data } = await instance.get("IAM/profile", { withCredentials: true })
         if (data) return data
     },
 

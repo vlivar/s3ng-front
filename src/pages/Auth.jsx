@@ -46,7 +46,7 @@ const Auth = props => {
             const data = await AuthService.login({login, password})
             if (data) {
                 dispatch(loginAction({ login, password }))
-                dispatch(setAccessToken(data.tokens))
+                dispatch(setAccessToken(data.accessToken))
                 toast.success("Login successfully")
                 navigate("/")
             }
