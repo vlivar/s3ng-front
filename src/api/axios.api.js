@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { store } from "../store/store";
-import { logoutAction, setAccessToken } from "../store/user/userSlice";
+import { logoutAction } from "../store/user/userSlice";
 import { getTokenFromLocalStorage, setAccessTokenToLocalStorage } from "../helpers/localstorage.helper";
 
 export const instance = axios.create(
@@ -23,11 +23,15 @@ instance.interceptors.response.use((response) => response,
     async (error) => {
         const originalRequest = error.config;
         
-        if (error.response?.status === 401) {
+        const token = getTokenFromLocalStorage();
+
+        //if (error.response?.status === 401) {
+
+        if (token && isTokenExpired(token)) {
             originalRequest._retry = true;
             try {
                 const { data } = await instance.post("refresh", {})
-                store.dispatch(setAccessToken(data.accessToken))
+                setAccessTokenToLocalStorage(data.accessToken)
                 originalRequest.headers.Authorization = `Bearer ${data.accessToken}`
                 return instance(originalRequest)
             } catch (err) {
@@ -38,3 +42,10 @@ instance.interceptors.response.use((response) => response,
         return Promise.reject(error);
     }
 )
+
+function isTokenExpired(token) {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const expirationDate = new Date(payload.exp * 1000)
+    const now = new Date();
+    return now > expirationDate;
+}
