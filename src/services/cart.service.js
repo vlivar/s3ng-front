@@ -44,6 +44,12 @@ export const CartService = {
         const newAbortController = new AbortController();
         this.connection.invoke('GetCart', userId, newAbortController)
             .catch(err => console.error('SignalR GetCart Error: ', err));
+    },
+
+    clearCart(userId) {
+        const newAbortController = new AbortController();
+        this.connection.invoke('ClearCart', userId, newAbortController)
+            .catch(err => console.error('SignalR ClearCart Error: ', err));
     }
   };
   

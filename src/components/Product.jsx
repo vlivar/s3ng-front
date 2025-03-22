@@ -6,7 +6,7 @@ import { addToCart } from "../store/cart/cartSlice";
 const Product = ({ id: productId }) => {
   const { selectedProduct, status } = useSelector((state) => state.product);
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.user.userData.email);
+  const userId = useSelector((state) => state.user.userData.authenticationId);
 
   useEffect(() => {
     if (productId) {

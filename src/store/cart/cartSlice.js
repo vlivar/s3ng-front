@@ -15,13 +15,6 @@ const cartSlice = createSlice({
     addToCart: (state, action) => {
       const { id, description, price, name } = action.payload.product;
       const { userId } = action.payload;
-      const existingItem = state.cart.find((item) => item.id === id);
-
-      if (existingItem) {
-        existingItem.quantity += 1;
-      } else {
-        state.cart.push({ id, description, price, quantity: 1 });
-      }
 
       const item = {
         productId: id,
@@ -34,8 +27,11 @@ const cartSlice = createSlice({
     },
     removeFromCart: (state, action) => {
       const { id, userId } = action.payload;
-      state.cart = state.cart.filter((item) => item.id !== id);
       CartService.removeFromCart(userId, id);
+
+      if (state.cart.length == 1) {
+        state.cart = [];
+      }
     },
     updateQuantity: (state, action) => {
       const { id, quantity, userId } = action.payload;
@@ -45,7 +41,8 @@ const cartSlice = createSlice({
       }
       CartService.addToCart(userId, { productId: id, count: quantity });
     },
-    clearCart: (state) => {
+    clearCart: (state, action) => {
+      CartService.clearCart(action.payload)
       state.cart = [];
     },
   },
