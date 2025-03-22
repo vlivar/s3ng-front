@@ -37,7 +37,7 @@ export default function Product() {
                 >
                   <img
                     className="object-cover object-center w-full h-48"
-                    src={product.imageUrl.replace("http://minio:9000//", "http://localhost/")}
+                    src={product.imageUrl?.replace("http://minio:9000//", "http://localhost/")}
                     alt="Product Image"
                   />
                   <div className="p-4">
